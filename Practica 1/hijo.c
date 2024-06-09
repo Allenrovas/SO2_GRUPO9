@@ -9,7 +9,10 @@
 #include <signal.h>
 
 #define FILENAME "practica1.txt"
+#define LOGFILE "syscalls.log"
 #define BUFFER_SIZE 8
+
+
 
 void send_signal(int signum) {
     pid_t parent_pid = getppid();
@@ -30,7 +33,6 @@ char *generate_random_string(int length) {
             random_string[length] = '\0';
         }
     }
-    printf("Random string: %s\n", random_string);
     return random_string;
 }
 
@@ -46,6 +48,10 @@ void initialize_file(const char *filename) {
 int main() {
     srand(time(NULL));
 
+    // Escribir el PID en la tubería y continuar con la ejecución
+    printf("%d\n", getpid());
+    fflush(stdout);
+
     initialize_file(FILENAME);
 
     while (1) {
@@ -53,6 +59,7 @@ int main() {
         int sleep_time = (rand() % 3) + 1;
         sleep(sleep_time);
 
+        // Enviar la señal respectiva al proceso padre
         switch (action) {
             case 0:  // Open
                 send_signal(SIGUSR1);
@@ -69,6 +76,7 @@ int main() {
 
         // Realizar la operación respectiva
         int fd;
+        pid_t pid = getpid();
         switch (action) {
             case 0:  // Open
                 fd = open(FILENAME, O_RDWR);
