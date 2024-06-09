@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -10,8 +9,6 @@
 #include <time.h>
 
 #define LOGFILE "syscalls.log"
-#define MY_SIGNAL SIGRTMIN  // Definir una señal en tiempo real personalizada
-#define OPEN_SIGNAL (SIGRTMIN + 1)  // Definir una señal en tiempo real personalizada para aperturas de archivos
 
 int total_calls = 0;
 int read_calls = 0;
@@ -37,16 +34,19 @@ void log_syscall(const char *syscall_name, pid_t pid) {
 void sig_handler(int signum) {
     if (signum == SIGUSR1) {
         total_calls++;
-        printf("Received SIGUSR1\n");
-    } else if (signum == SIGUSR2) {
-        read_calls++;
-        printf("Received SIGUSR2\n");
-    } else if (signum == MY_SIGNAL) {
-        write_calls++;
-        printf("Received MY_SIGNAL\n");
-    } else if (signum == OPEN_SIGNAL) {
         open_calls++;
-        printf("Received OPEN_SIGNAL\n");
+        printf("Señal SIGUSR1 recibida\n");
+        log_syscall("open", getpid());
+    } else if (signum == SIGUSR2) {
+        total_calls++;
+        write_calls++;
+        printf("Señal SIGUSR2 recibida\n");
+        log_syscall("write", getpid());
+    } else if (signum == SIGRTMIN) {
+        total_calls++;
+        read_calls++;
+        printf("Señal SIGRTMIN recibida\n");
+        log_syscall("read", getpid());
     } else if (signum == SIGINT) {
         printf("\nNúmero total de llamadas al sistema: %d\n", total_calls);
         printf("Número de llamadas al sistema por tipo:\n");
@@ -58,6 +58,9 @@ void sig_handler(int signum) {
 }
 
 int main() {
+    int pipe1[2], pipe2[2];
+    pid_t pid1, pid2;
+
     // Initialize logfile
     FILE *log_file = fopen(LOGFILE, "w");
     if (log_file == NULL) {
@@ -69,18 +72,23 @@ int main() {
     // Set up signal handlers
     signal(SIGUSR1, sig_handler);
     signal(SIGUSR2, sig_handler);
-    signal(MY_SIGNAL, sig_handler); // Manejar la señal personalizada
-    signal(OPEN_SIGNAL, sig_handler); // Manejar la señal de apertura de archivos
+    signal(SIGRTMIN, sig_handler); // Señal personalizada para lectura
     signal(SIGINT, sig_handler);
 
-    // Fork two child processes
-    pid_t pid1, pid2;
+    // Create pipes
+    if (pipe(pipe1) == -1 || pipe(pipe2) == -1) {
+        perror("Error al crear las tuberías");
+        exit(EXIT_FAILURE);
+    }
+
     pid1 = fork();
     if (pid1 < 0) {
         perror("Error en fork");
         exit(EXIT_FAILURE);
     } else if (pid1 == 0) { // Child process 1
-        execl("./hijo", "./hijo", NULL);
+        close(pipe1[0]); // Close reading end
+        dup2(pipe1[1], STDOUT_FILENO); // Redirect stdout to pipe
+        execl("./hijo.bin", "./hijo.bin", NULL);
         perror("Error al ejecutar el proceso hijo 1");
         exit(EXIT_FAILURE);
     }
@@ -90,10 +98,29 @@ int main() {
         perror("Error en fork");
         exit(EXIT_FAILURE);
     } else if (pid2 == 0) { // Child process 2
-        execl("./hijo", "./hijo", NULL);
+        close(pipe2[0]); // Close reading end
+        dup2(pipe2[1], STDOUT_FILENO); // Redirect stdout to pipe
+        execl("./hijo.bin", "./hijo.bin", NULL);
         perror("Error al ejecutar el proceso hijo 2");
         exit(EXIT_FAILURE);
     }
+
+    // Close writing ends of pipes in the parent process
+    close(pipe1[1]);
+    close(pipe2[1]);
+
+    // Read PIDs from pipes
+    char buffer[16];
+    read(pipe1[0], buffer, sizeof(buffer));
+    pid1 = (pid_t) atoi(buffer);
+    read(pipe2[0], buffer, sizeof(buffer));
+    pid2 = (pid_t) atoi(buffer);
+
+    // Print PIDs (optional)
+    printf("PID del hijo 1: %d\n", pid1);
+    printf("PID del hijo 2: %d\n", pid2);
+
+    // Pass the PIDs to the SystemTap script (code for this part should be written separately)
 
     // Wait for child processes to finish
     int status;
