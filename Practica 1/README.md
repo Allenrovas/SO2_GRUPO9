@@ -34,21 +34,27 @@ if (pid2 < 0) {
 
 ### 2. Creacion de logs de syscalls
 
-Para monitorear las llamadas del sistema se hace uso de una función que escribe las llamadas de sistema que realiza un proceso en un archivo de texto con el siguiente formato: Proceso [pid]: [syscall] ([fecha y hora])
+Para monitorear las llamadas del sistema se hace uso de una función que ejecuta un script de SystemTap que captura los syscalls realizados por los procesos hijos en un archivo de texto con el siguiente formato: Proceso [pid]: [syscall] ([fecha y hora])
 
 ```c
-void log_syscall(const char *syscall_name, pid_t pid) {
-    FILE *log_file = fopen(LOGFILE, "a");
-    if (log_file == NULL) {
-        perror("Error al abrir el archivo de log");
-        exit(EXIT_FAILURE);
+        char command[100];
+        sprintf(command, "sudo stap trace.stp %d %d > syscalls.log", pid1, pid2);
+        system(command);
+```
+- Script de SystemTap:
+```bash
+#!/usr/bin/stap
+
+probe syscall.read {
+    if (pid() == $1 || pid() == $2) {
+        printf("Proceso %d: read (%s)\n", pid(), ctime(gettimeofday_s()))
     }
-    time_t current_time;
-    time(&current_time);
-    char *time_str = ctime(&current_time);
-    time_str[strlen(time_str) - 1] = '\0';
-    fprintf(log_file, "Proceso %d: %s (%s)\n", pid, syscall_name, time_str);
-    fclose(log_file);
+}
+
+probe syscall.write {
+    if (pid() == $1 || pid() == $2) {
+        printf("Proceso %d: write (%s)\n", pid(), ctime(gettimeofday_s()))
+    }
 }
 ```
 

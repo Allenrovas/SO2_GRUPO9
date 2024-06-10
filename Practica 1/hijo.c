@@ -9,10 +9,7 @@
 #include <signal.h>
 
 #define FILENAME "practica1.txt"
-#define LOGFILE "syscalls.log"
 #define BUFFER_SIZE 8
-
-
 
 void send_signal(int signum) {
     pid_t parent_pid = getppid();
@@ -76,7 +73,6 @@ int main() {
 
         // Realizar la operación respectiva
         int fd;
-        pid_t pid = getpid();
         switch (action) {
             case 0:  // Open
                 fd = open(FILENAME, O_RDWR);
@@ -94,7 +90,12 @@ int main() {
                     exit(EXIT_FAILURE);
                 }
                 char *random_string = generate_random_string(BUFFER_SIZE);
-                write(fd, random_string, BUFFER_SIZE);
+                if (write(fd, random_string, BUFFER_SIZE) < 0) {
+                    perror("Error al escribir en el archivo");
+                    free(random_string);
+                    close(fd);
+                    exit(EXIT_FAILURE);
+                }
                 free(random_string);
                 close(fd);
                 break;
