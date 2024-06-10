@@ -17,21 +17,7 @@ int open_calls = 0;
 pid_t pid1 = 0; // Variables globales para los PIDs de los procesos hijos
 pid_t pid2 = 0;
 
-void log_syscall(const char *syscall_name, pid_t pid) {
-    FILE *log_file = fopen(LOGFILE, "a");
-    if (log_file == NULL) {
-        perror("Error al abrir el archivo de log");
-        exit(EXIT_FAILURE);
-    }
 
-    time_t current_time;
-    time(&current_time);
-    char *time_str = ctime(&current_time);
-    time_str[strlen(time_str) - 1] = '\0'; // Remove trailing newline from ctime result
-
-    fprintf(log_file, "Proceso %d: %s (%s)\n", pid, syscall_name, time_str);
-    fclose(log_file);
-}
 
 void sig_handler(int signum) {
     pid_t pid = getpid(); // Obtener el PID del proceso actual
@@ -39,17 +25,14 @@ void sig_handler(int signum) {
         total_calls++;
         open_calls++;
         printf("Señal SIGUSR1 recibida\n");
-        //log_syscall("open", pid);
     } else if (signum == SIGUSR2) {
         total_calls++;
         write_calls++;
         printf("Señal SIGUSR2 recibida\n");
-        //log_syscall("write", pid);
     } else if (signum == SIGRTMIN) {
         total_calls++;
         read_calls++;
         printf("Señal SIGRTMIN recibida\n");
-        //log_syscall("read", pid);
     }
 }
 
@@ -64,6 +47,7 @@ void sigint_handler(int signum) {
 
 int main() {
     int pipe1[2], pipe2[2];
+    pid_t arregloPid[2];
 
     // Initialize logfile
     FILE *log_file = fopen(LOGFILE, "w");
@@ -102,7 +86,7 @@ int main() {
         close(pipe1[1]); // Close writing end
         char buffer[16];
         read(pipe1[0], buffer, sizeof(buffer));
-        pid1 = (pid_t) atoi(buffer);
+        //pid1 = (pid_t) atoi(buffer);
         printf("PID del proceso hijo 1: %d\n", pid1);
         close(pipe1[0]); // Close reading end
     }
@@ -121,21 +105,22 @@ int main() {
         close(pipe2[1]); // Close writing end
         char buffer[16];
         read(pipe2[0], buffer, sizeof(buffer));
-        pid2 = (pid_t) atoi(buffer);
+        //pid2 = (pid_t) atoi(buffer);
         printf("PID del proceso hijo 2: %d\n", pid2);
         close(pipe2[0]); // Close reading end
     }
 
+    
+
+    // Ejecutar el script de SystemTap
+    char command[100];
+    sprintf(command, "sudo stap trace.stp %d %d > syscalls.log", pid1, pid2);
+    system(command);
+    
     // Esperar a que ambos procesos hijos terminen
     int status;
     waitpid(pid1, &status, 0);
     waitpid(pid2, &status, 0);
-
-    // Ejecutar el script de SystemTap
-        char command[100];
-        sprintf(command, "sudo stap trace.stp %d %d > syscalls.log", pid1, pid2);
-        system(command);
-
 
     return 0;
 }
