@@ -11,3 +11,9 @@ probe syscall.write {
         printf("Proceso %d: write (%s)\n", pid(), ctime(gettimeofday_s()))
     }
 }
+
+probe syscall.openat {
+    if (pid() == $1 || pid() == $2) {
+        printf("Proceso %d: open (%s)\n", pid(), ctime(gettimeofday_s()))
+    }
+}
