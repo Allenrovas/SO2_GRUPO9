@@ -7,6 +7,7 @@
 
 // Declaración de la estructura thread_data
 struct thread_data {
+    cJSON* json_part;
     char* filename;
     int hilo_id;
     int operaciones_realizadas;
@@ -25,7 +26,7 @@ struct Operacion {
 // Prototipos de funciones
 void* cargarOperacionesEnHilo(void* arg);
 void generarReporteUsuarios(struct thread_data* datos, int* errores, int num_hilos);
-void read_json_fileUsers(char *filename, struct thread_data* data);
+void read_json_fileUsers(cJSON* json, struct thread_data* data);
 void* cargarUsuariosEnHilo(void* arg);
 void cargarUsuarios();
 void deposito(struct Operacion* op);
@@ -165,122 +166,17 @@ int main() {
 
 // Implementaciones de funciones
 
-void cargarUsuarios() {
-
-    pthread_t hilos[3];
-    struct thread_data datos[3];
-    int errores[3] = {0, 0, 0};
-
-    // Inicializar datos de hilos
-    for (int i = 0; i < 3; i++) {
-        datos[i].filename = "usuarios.json";
-        datos[i].hilo_id = i + 1;
-        datos[i].operaciones_realizadas = 0;
-        datos[i].errores = &errores[i];
-        datos[i].errores_size = 0;
-        pthread_create(&hilos[i], NULL, cargarUsuariosEnHilo, (void*)&datos[i]);
-    }
-
-    // Esperar a que los hilos terminen
-    for (int i = 0; i < 3; i++) {
-        pthread_join(hilos[i], NULL);
-    }
-
-    generarReporteUsuarios(datos, errores, 3);
-
-    printf("\n");
-    printf("Usuarios cargados.\n");
-}
-
-void generarReporteUsuarios(struct thread_data* datos, int* errores, int num_hilos) {
-    // Obtener la fecha y hora actuales
-    time_t now = time(NULL);
-    struct tm *t = localtime(&now);
-    char fecha[100];
-    strftime(fecha, sizeof(fecha)-1, "%Y-%m-%d %H:%M:%S", t);
-
-    // Generar nombre de archivo de reporte
-    char filename[100];
-    strftime(filename, sizeof(filename)-1, "carga_%Y_%m_%d-%H_%M_%S.log", t);
-
-    // Abrir archivo de reporte
-    FILE *reporte = fopen(filename, "w");
-    if(!reporte) {
-        perror("Open Report File");
-        return;
-    }
-
-    // Escribir encabezado del reporte
-    fprintf(reporte, "--- Carga de usuarios ----\n");
-    fprintf(reporte, "Fecha: %s\n", fecha);
-
-    int total_cargados = 0;
-    for(int i = 0; i < num_hilos; i++) {
-        fprintf(reporte, "Usuarios cargados por hilo %d: %d\n", datos[i].hilo_id, datos[i].operaciones_realizadas);
-        total_cargados += datos[i].operaciones_realizadas;
-    }
-
-    fprintf(reporte, "Total de usuarios cargados: %d\n", total_cargados);
-
-    // Escribir errores
-    fprintf(reporte, "\n--- errores encontrados ---\n");
-    for(int i = 0; i < num_hilos; i++) {
-        fprintf(reporte, "Hilo %d: %d errores\n", datos[i].hilo_id, errores[i]);
-    }
-
-    // Cerrar archivo de reporte
-    fclose(reporte);
-    printf("\n");
-    printf("Reporte de carga de usuarios generado.\n");
-}
-
 void* cargarUsuariosEnHilo(void* arg) {
     struct thread_data* data = (struct thread_data*)arg;
-    read_json_fileUsers(data->filename, data);
+    read_json_fileUsers(data->json_part, data);
     return NULL;
 }
 
-void read_json_fileUsers(char *filename, struct thread_data* data) {
-    // Abre el archivo JSON para lectura
-    FILE *file = fopen(filename, "r");
-    if (!file) {
-        perror("Open File");
-        return;
-    }
-
-    // Obtén el tamaño del archivo
-    fseek(file, 0, SEEK_END);
-    long filesize = ftell(file);
-    fseek(file, 0, SEEK_SET);
-
-    // Lee todo el archivo en un buffer
-    char *buffer = (char*)malloc(filesize + 1);
-    fread(buffer, 1, filesize, file);
-    buffer[filesize] = '\0';
-
-    // Cierra el archivo
-    fclose(file);
-
-    // Parsea los datos JSON
-    cJSON *json = cJSON_Parse(buffer);
-    if (json == NULL) {
-        perror("Parse JSON");
-        free(buffer);
-        return;
-    }
-
-    // Verifica si es un arreglo JSON válido
-    if (!cJSON_IsArray(json)) {
-        perror("JSON is not Array");
-        cJSON_Delete(json);
-        free(buffer);
-        return;
-    }
-
+void read_json_fileUsers(cJSON* json, struct thread_data* data) {
     int n = 0;
     cJSON *item = NULL;
     cJSON_ArrayForEach(item, json) {
-            if (cJSON_IsObject(item)) {
+        if (cJSON_IsObject(item)) {
             cJSON *no_cuenta = cJSON_GetObjectItem(item, "no_cuenta");
             cJSON *nombre = cJSON_GetObjectItem(item, "nombre");
             cJSON *saldo = cJSON_GetObjectItem(item, "saldo");
@@ -319,7 +215,6 @@ void read_json_fileUsers(char *filename, struct thread_data* data) {
                     perror("Memory Allocation Error");
                     pthread_mutex_unlock(&mutexUsuarios);
                     cJSON_Delete(json);
-                    free(buffer);
                     return;
                 }
                 usuarios = new_array;
@@ -340,10 +235,119 @@ void read_json_fileUsers(char *filename, struct thread_data* data) {
     }
 
     data->operaciones_realizadas = n;
+}
 
-    // Limpiar
+void generarReporteUsuarios(struct thread_data* datos, int* errores, int num_hilos) {
+    // Obtener la fecha y hora actuales
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+    char fecha[100];
+    strftime(fecha, sizeof(fecha)-1, "%Y-%m-%d %H:%M:%S", t);
+
+    // Generar nombre de archivo de reporte
+    char filename[100];
+    strftime(filename, sizeof(filename)-1, "carga_%Y_%m_%d-%H_%M_%S.log", t);
+
+    // Abrir archivo de reporte
+    FILE *reporte = fopen(filename, "w");
+    if(!reporte) {
+        perror("Open Report File");
+        return;
+    }
+
+    // Escribir encabezado del reporte
+    fprintf(reporte, "--- Carga de usuarios ----\n");
+    fprintf(reporte, "Fecha: %s\n", fecha);
+
+    int total_cargados = 0;
+    for(int i = 0; i < num_hilos; i++) {
+        fprintf(reporte, "Usuarios cargados por hilo %d: %d\n", datos[i].hilo_id, datos[i].operaciones_realizadas);
+        total_cargados += datos[i].operaciones_realizadas;
+    }
+
+    fprintf(reporte, "Total de usuarios cargados: %d\n", total_cargados);
+
+    // Escribir errores
+    fprintf(reporte, "\n--- errores encontrados ---\n");
+    for(int i = 0; i < num_hilos; i++) {
+        fprintf(reporte, "Hilo %d: %d errores\n", datos[i].hilo_id, *(datos[i].errores));
+    }
+
+    // Cerrar archivo de reporte
+    fclose(reporte);
+    printf("\n");
+    printf("Reporte de carga de usuarios generado.\n");
+}
+
+void cargarUsuarios() {
+    // Abrir y leer el archivo JSON
+    FILE *file = fopen("usuarios.json", "r");
+    if (!file) {
+        perror("Open File");
+        return;
+    }
+
+    fseek(file, 0, SEEK_END);
+    long filesize = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
+    char *buffer = (char*)malloc(filesize + 1);
+    fread(buffer, 1, filesize, file);
+    buffer[filesize] = '\0';
+
+    fclose(file);
+
+    cJSON *json = cJSON_Parse(buffer);
+    if (json == NULL) {
+        perror("Parse JSON");
+        free(buffer);
+        return;
+    }
+
+    if (!cJSON_IsArray(json)) {
+        perror("JSON is not Array");
+        cJSON_Delete(json);
+        free(buffer);
+        return;
+    }
+
+    // Dividir el JSON en 3 partes
+    int total_elements = cJSON_GetArraySize(json);
+    int elements_per_thread = total_elements / 3;
+
+    pthread_t hilos[3];
+    struct thread_data datos[3];
+    int errores[3] = {0, 0, 0};
+
+    cJSON* json_parts[3] = { cJSON_CreateArray(), cJSON_CreateArray(), cJSON_CreateArray() };
+
+    for (int i = 0; i < total_elements; i++) {
+        cJSON* item = cJSON_DetachItemFromArray(json, 0);
+        cJSON_AddItemToArray(json_parts[i % 3], item);
+    }
+
+    // Inicializar datos de hilos
+    for (int i = 0; i < 3; i++) {
+        datos[i].json_part = json_parts[i];
+        datos[i].hilo_id = i + 1;
+        datos[i].operaciones_realizadas = 0;
+        datos[i].errores = &errores[i];
+        pthread_create(&hilos[i], NULL, cargarUsuariosEnHilo, (void*)&datos[i]);
+    }
+
+    // Esperar a que los hilos terminen
+    for (int i = 0; i < 3; i++) {
+        pthread_join(hilos[i], NULL);
+        cJSON_Delete(json_parts[i]);
+    }
+
+    generarReporteUsuarios(datos, errores, 3);
+
     cJSON_Delete(json);
     free(buffer);
+
+    printf("\n");
+    printf("Usuarios cargados.\n");
 }
 
 void deposito(struct Operacion* op) {

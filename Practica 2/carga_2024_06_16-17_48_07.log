@@ -1,0 +1,11 @@
+--- Carga de usuarios ----
+Fecha: 2024-06-16 17:48:07
+Usuarios cargados por hilo 1: 0
+Usuarios cargados por hilo 2: 19
+Usuarios cargados por hilo 3: 0
+Total de usuarios cargados: 19
+
+--- errores encontrados ---
+Hilo 1: 20 errores
+Hilo 2: 1 errores
+Hilo 3: 20 errores
