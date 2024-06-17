@@ -5,6 +5,11 @@
 #include <time.h>
 #include "cJSON.h"
 
+struct ErrorDetail {
+    int linea;
+    char descripcion[100];
+};
+
 // Declaración de la estructura thread_data
 struct thread_data {
     cJSON* json_part;
@@ -13,6 +18,8 @@ struct thread_data {
     int operaciones_realizadas;
     int* errores;
     int errores_size;
+    struct ErrorDetail* detalle_errores;
+    int num_errores;
 };
 
 // Declaración de la estructura Operacion
@@ -25,7 +32,7 @@ struct Operacion {
 
 // Prototipos de funciones
 void* cargarOperacionesEnHilo(void* arg);
-void generarReporteUsuarios(struct thread_data* datos, int* errores, int num_hilos);
+void generarReporteUsuarios(struct thread_data* datos, int num_hilos);
 void read_json_fileUsers(cJSON* json, struct thread_data* data);
 void* cargarUsuariosEnHilo(void* arg);
 void cargarUsuarios();
@@ -174,8 +181,10 @@ void* cargarUsuariosEnHilo(void* arg) {
 
 void read_json_fileUsers(cJSON* json, struct thread_data* data) {
     int n = 0;
+    int linea = 0;
     cJSON *item = NULL;
     cJSON_ArrayForEach(item, json) {
+        linea++;
         if (cJSON_IsObject(item)) {
             cJSON *no_cuenta = cJSON_GetObjectItem(item, "no_cuenta");
             cJSON *nombre = cJSON_GetObjectItem(item, "nombre");
@@ -185,7 +194,17 @@ void read_json_fileUsers(cJSON* json, struct thread_data* data) {
             if (!cJSON_IsNumber(no_cuenta) || no_cuenta->valueint <= 0 ||
                 !cJSON_IsString(nombre) || !cJSON_IsNumber(saldo) || saldo->valuedouble < 0) {
                 pthread_mutex_lock(&mutexErrores);
-                (*data->errores)++;
+                if (data->num_errores < 100) {
+                    data->detalle_errores[data->num_errores].linea = linea;
+                    if (!cJSON_IsNumber(no_cuenta) || no_cuenta->valueint <= 0) {
+                        snprintf(data->detalle_errores[data->num_errores].descripcion, 100, "Número de cuenta inválido");
+                    } else if (!cJSON_IsString(nombre)) {
+                        snprintf(data->detalle_errores[data->num_errores].descripcion, 100, "Nombre inválido");
+                    } else if (!cJSON_IsNumber(saldo) || saldo->valuedouble < 0) {
+                        snprintf(data->detalle_errores[data->num_errores].descripcion, 100, "Saldo no puede ser menor que 0");
+                    }
+                    data->num_errores++;
+                }
                 pthread_mutex_unlock(&mutexErrores);
                 continue;
             }
@@ -201,7 +220,13 @@ void read_json_fileUsers(cJSON* json, struct thread_data* data) {
             }
 
             if (cuenta_duplicada) {
-                (*data->errores)++;
+                pthread_mutex_lock(&mutexErrores);
+                if (data->num_errores < 100) {
+                    data->detalle_errores[data->num_errores].linea = linea;
+                    snprintf(data->detalle_errores[data->num_errores].descripcion, 100, "Número de cuenta duplicada");
+                    data->num_errores++;
+                }
+                pthread_mutex_unlock(&mutexErrores);
                 pthread_mutex_unlock(&mutexUsuarios);
                 continue;
             }
@@ -237,7 +262,7 @@ void read_json_fileUsers(cJSON* json, struct thread_data* data) {
     data->operaciones_realizadas = n;
 }
 
-void generarReporteUsuarios(struct thread_data* datos, int* errores, int num_hilos) {
+void generarReporteUsuarios(struct thread_data* datos, int num_hilos) {
     // Obtener la fecha y hora actuales
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
@@ -270,7 +295,9 @@ void generarReporteUsuarios(struct thread_data* datos, int* errores, int num_hil
     // Escribir errores
     fprintf(reporte, "\n--- errores encontrados ---\n");
     for(int i = 0; i < num_hilos; i++) {
-        fprintf(reporte, "Hilo %d: %d errores\n", datos[i].hilo_id, *(datos[i].errores));
+        for (int j = 0; j < datos[i].num_errores; j++) {
+            fprintf(reporte, "     -Linea %d: %s\n", datos[i].detalle_errores[j].linea, datos[i].detalle_errores[j].descripcion);
+        }
     }
 
     // Cerrar archivo de reporte
@@ -317,7 +344,7 @@ void cargarUsuarios() {
 
     pthread_t hilos[3];
     struct thread_data datos[3];
-    int errores[3] = {0, 0, 0};
+    struct ErrorDetail errores[3][100]; // Suponiendo un máximo de 100 errores por hilo
 
     cJSON* json_parts[3] = { cJSON_CreateArray(), cJSON_CreateArray(), cJSON_CreateArray() };
 
@@ -331,18 +358,21 @@ void cargarUsuarios() {
         datos[i].json_part = json_parts[i];
         datos[i].hilo_id = i + 1;
         datos[i].operaciones_realizadas = 0;
-        datos[i].errores = &errores[i];
+        datos[i].detalle_errores = errores[i];
+        datos[i].num_errores = 0;
         pthread_create(&hilos[i], NULL, cargarUsuariosEnHilo, (void*)&datos[i]);
     }
 
     // Esperar a que los hilos terminen
     for (int i = 0; i < 3; i++) {
         pthread_join(hilos[i], NULL);
-        cJSON_Delete(json_parts[i]);
     }
 
-    generarReporteUsuarios(datos, errores, 3);
+    generarReporteUsuarios(datos, 3);
 
+    cJSON_Delete(json_parts[0]);
+    cJSON_Delete(json_parts[1]);
+    cJSON_Delete(json_parts[2]);
     cJSON_Delete(json);
     free(buffer);
 
