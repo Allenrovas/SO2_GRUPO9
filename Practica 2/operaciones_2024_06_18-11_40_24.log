@@ -1,0 +1,21 @@
+--- Carga de operaciones ----
+Fecha: 2024-06-18 11:40:24
+Operaciones realizadas por hilo 1: 48
+Operaciones realizadas por hilo 2: 44
+Operaciones realizadas por hilo 3: 47
+Operaciones realizadas por hilo 4: 49
+Total de operaciones realizadas: 188
+
+--- errores encontrados ---
+Hilo 1: Error en línea 34: Operacion no valida
+Hilo 1: Error en línea 37: Monto no valido
+Hilo 2: Error en línea 55: Operacion no valida
+Hilo 2: Error en línea 73: Operacion no valida
+Hilo 2: Error en línea 78: Monto no valido
+Hilo 2: Error en línea 81: Monto no valido
+Hilo 2: Error en línea 88: Operacion no valida
+Hilo 2: Error en línea 100: Operacion no valida
+Hilo 3: Error en línea 116: Monto no valido
+Hilo 3: Error en línea 117: Operacion no valida
+Hilo 3: Error en línea 123: Operacion no valida
+Hilo 4: Error en línea 158: Monto no valido

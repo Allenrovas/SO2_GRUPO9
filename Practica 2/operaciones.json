@@ -1,22 +1,1202 @@
 [
-    {"operacion":1,"cuenta1":691232,"cuenta2":0,"monto":613588.14},
-    {"operacion":1,"cuenta1":547707,"cuenta2":0,"monto":750040.81},
-    {"operacion":1,"cuenta1":547707,"cuenta2":0,"monto":499232.72},
-    {"operacion":3,"cuenta1":691232,"cuenta2":576515,"monto":34151.52},
-    {"operacion":2,"cuenta1":114246,"cuenta2":0,"monto":82408.81},
-    {"operacion":3,"cuenta1":941937,"cuenta2":609283,"monto":985653.01},
-    {"operacion":1,"cuenta1":311016,"cuenta2":0,"monto":871352.65},
-    {"operacion":1,"cuenta1":509596,"cuenta2":0,"monto":775578.62},
-    {"operacion":2,"cuenta1":576515,"cuenta2":0,"monto":738056.32},
-    {"operacion":3,"cuenta1":344120,"cuenta2":513312,"monto":870917.01},
-    {"operacion":3,"cuenta1":406851,"cuenta2":84669,"monto":15284.26},
-    {"operacion":3,"cuenta1":580742,"cuenta2":725388,"monto":24327.74},
-    {"operacion":2,"cuenta1":46588,"cuenta2":0,"monto":150424.45},
-    {"operacion":3,"cuenta1":64390,"cuenta2":114246,"monto":888080.23},
-    {"operacion":2,"cuenta1":357428,"cuenta2":0,"monto":289137.2},
-    {"operacion":3,"cuenta1":513312,"cuenta2":46588,"monto":501438.78},
-    {"operacion":1,"cuenta1":725388,"cuenta2":0,"monto":48592.01},
-    {"operacion":2,"cuenta1":84669,"cuenta2":0,"monto":"1020"},
-    {"operacion":2,"cuenta1":"123","cuenta2":0,"monto":454481.46},
-    {"operacion":3,"cuenta1":576515,"cuenta2":344120,"monto":-508284.61}
-]
+    {
+      "operacion": 1,
+      "cuenta1": 3363,
+      "cuenta2": 0,
+      "monto": 4188.31
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8081,
+      "cuenta2": 3848,
+      "monto": 4407.14
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5820,
+      "cuenta2": 0,
+      "monto": 823.59
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6420,
+      "cuenta2": 0,
+      "monto": 4608.09
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8806,
+      "cuenta2": 9229,
+      "monto": 1432.87
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1543,
+      "cuenta2": 5820,
+      "monto": 200
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 8275,
+      "cuenta2": 0,
+      "monto": 2728.55
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 8806,
+      "cuenta2": 0,
+      "monto": 412.46
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6688,
+      "cuenta2": 0,
+      "monto": 4696.05
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7128,
+      "cuenta2": 9483,
+      "monto": 513.44
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 8870,
+      "cuenta2": 0,
+      "monto": 1882
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 3349,
+      "cuenta2": 0,
+      "monto": 4040.51
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1406,
+      "cuenta2": 0,
+      "monto": 1236.14
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6959,
+      "cuenta2": 3684,
+      "monto": 834.23
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7393,
+      "cuenta2": 8081,
+      "monto": 1690.41
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7780,
+      "cuenta2": 0,
+      "monto": 1804.93
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2359,
+      "cuenta2": 0,
+      "monto": 2831.21
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2359,
+      "cuenta2": 0,
+      "monto": 1052.05
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7200,
+      "cuenta2": 0,
+      "monto": 2789.74
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8978,
+      "cuenta2": 3349,
+      "monto": 2537.97
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5940,
+      "cuenta2": 0,
+      "monto": 1889.58
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7071,
+      "cuenta2": 0,
+      "monto": 4113.58
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7349,
+      "cuenta2": 0,
+      "monto": 263.41
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 4513,
+      "cuenta2": 0,
+      "monto": 158.29
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 2713,
+      "cuenta2": 7780,
+      "monto": 10591.84
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2689,
+      "cuenta2": 0,
+      "monto": 112.8
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6215,
+      "cuenta2": 2928,
+      "monto": 712.36
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1543,
+      "cuenta2": 9187,
+      "monto": 2914.5
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9519,
+      "cuenta2": 0,
+      "monto": 4365.2
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7349,
+      "cuenta2": 7154,
+      "monto": 2649.31
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7688,
+      "cuenta2": 0,
+      "monto": 3286.9
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6102,
+      "cuenta2": 0,
+      "monto": 2132
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 3600,
+      "cuenta2": 6688,
+      "monto": 3538.82
+    },
+    {
+      "operacion": 4,
+      "cuenta1": 3848,
+      "cuenta2": 1069,
+      "monto": 4574.43
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6102,
+      "cuenta2": 0,
+      "monto": 4103.12
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7867,
+      "cuenta2": 0,
+      "monto": 2319.37
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6420,
+      "cuenta2": 9805,
+      "monto": -54.52
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2713,
+      "cuenta2": 0,
+      "monto": 1661.03
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7780,
+      "cuenta2": 6496,
+      "monto": 3133.6
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7688,
+      "cuenta2": 0,
+      "monto": 4238.37
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5684,
+      "cuenta2": 0,
+      "monto": 3178.52
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5853,
+      "cuenta2": 9519,
+      "monto": 1537.46
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6102,
+      "cuenta2": 0,
+      "monto": 2824.63
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6420,
+      "cuenta2": 0,
+      "monto": 2137.66
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7154,
+      "cuenta2": 0,
+      "monto": 2904.97
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 8020,
+      "cuenta2": 0,
+      "monto": 4353.6
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2155,
+      "cuenta2": 0,
+      "monto": 66.88
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 3349,
+      "cuenta2": 0,
+      "monto": 3041.27
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6012,
+      "cuenta2": 9717,
+      "monto": 4225.5
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1209,
+      "cuenta2": 0,
+      "monto": 2612.9
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9251,
+      "cuenta2": 0,
+      "monto": 476.53
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 4272,
+      "cuenta2": 0,
+      "monto": 247.29
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5684,
+      "cuenta2": 6496,
+      "monto": 2780.17
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2382,
+      "cuenta2": 0,
+      "monto": 2038.63
+    },
+    {
+      "operacion": 0,
+      "cuenta1": 7867,
+      "cuenta2": 6012,
+      "monto": 1178.68
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2087,
+      "cuenta2": 0,
+      "monto": 323.05
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 5940,
+      "cuenta2": 0,
+      "monto": 1785.42
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2155,
+      "cuenta2": 0,
+      "monto": 3031.03
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7286,
+      "cuenta2": 0,
+      "monto": 323883
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 4513,
+      "cuenta2": 0,
+      "monto": 2128.37
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 3961,
+      "cuenta2": 8806,
+      "monto": 31.32
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5940,
+      "cuenta2": 0,
+      "monto": 4853.17
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 1406,
+      "cuenta2": 0,
+      "monto": 1456.9
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2382,
+      "cuenta2": 0,
+      "monto": 3981.97
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5018,
+      "cuenta2": 0,
+      "monto": 2830.22
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6012,
+      "cuenta2": 0,
+      "monto": 840.43
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1328,
+      "cuenta2": 0,
+      "monto": 10
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 9519,
+      "cuenta2": 0,
+      "monto": 2156.87
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 3363,
+      "cuenta2": 0,
+      "monto": 1009.97
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2754,
+      "cuenta2": 0,
+      "monto": 3819.4
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5396,
+      "cuenta2": 0,
+      "monto": 2704.13
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7128,
+      "cuenta2": 3086,
+      "monto": 4519.91
+    },
+    {
+      "operacion": 4,
+      "cuenta1": 1869,
+      "cuenta2": 7286,
+      "monto": 4330.27
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 8275,
+      "cuenta2": 0,
+      "monto": 1973.75
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 3848,
+      "cuenta2": 7128,
+      "monto": 1308.22
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2087,
+      "cuenta2": 0,
+      "monto": 4059.37
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5853,
+      "cuenta2": 0,
+      "monto": 4909.7
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 5018,
+      "cuenta2": 0,
+      "monto": -54.51
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5547,
+      "cuenta2": 7071,
+      "monto": 4276.24
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2155,
+      "cuenta2": 0,
+      "monto": 4642.37
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6215,
+      "cuenta2": 3052,
+      "monto": -9.9
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7128,
+      "cuenta2": 0,
+      "monto": 2889.25
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7780,
+      "cuenta2": 0,
+      "monto": 686.38
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6994,
+      "cuenta2": 0,
+      "monto": 2048.57
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6994,
+      "cuenta2": 0,
+      "monto": 3684.02
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1069,
+      "cuenta2": 5684,
+      "monto": 3336.92
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7349,
+      "cuenta2": 0,
+      "monto": 3850.74
+    },
+    {
+      "operacion": 4,
+      "cuenta1": 4617,
+      "cuenta2": 5940,
+      "monto": 1271.18
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6102,
+      "cuenta2": 0,
+      "monto": 391.94
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6102,
+      "cuenta2": 0,
+      "monto": 2569.46
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7780,
+      "cuenta2": 0,
+      "monto": 3525.08
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6355,
+      "cuenta2": 9841,
+      "monto": 1076.45
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 2155,
+      "cuenta2": 8781,
+      "monto": 2726.54
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 8275,
+      "cuenta2": 0,
+      "monto": 4915.46
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6496,
+      "cuenta2": 0,
+      "monto": 4842.9
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7745,
+      "cuenta2": 0,
+      "monto": 2315.99
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6495,
+      "cuenta2": 0,
+      "monto": 1834.5
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 3052,
+      "cuenta2": 0,
+      "monto": 2659
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 5229,
+      "cuenta2": 0,
+      "monto": 1359
+    },
+    {
+      "operacion": 8,
+      "cuenta1": 9805,
+      "cuenta2": 1800,
+      "monto": 2447.59
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 4617,
+      "cuenta2": 3961,
+      "monto": 3782.96
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5172,
+      "cuenta2": 0,
+      "monto": 1745.76
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6215,
+      "cuenta2": 0,
+      "monto": 4104.29
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1069,
+      "cuenta2": 6420,
+      "monto": 25
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6013,
+      "cuenta2": 0,
+      "monto": 4155.51
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7780,
+      "cuenta2": 0,
+      "monto": 65.14
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6495,
+      "cuenta2": 4812,
+      "monto": 3193.07
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 2533,
+      "cuenta2": 2359,
+      "monto": 1735.38
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7393,
+      "cuenta2": 0,
+      "monto": 3393.11
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7071,
+      "cuenta2": 0,
+      "monto": 1773.58
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9717,
+      "cuenta2": 0,
+      "monto": 2025.88
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 1406,
+      "cuenta2": 0,
+      "monto": 939.25
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 9789,
+      "cuenta2": 0,
+      "monto": 3121.11
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8275,
+      "cuenta2": 8806,
+      "monto": 3499.93
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 1142,
+      "cuenta2": 0,
+      "monto": 345.01
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 8081,
+      "cuenta2": 0,
+      "monto": -49.79
+    },
+    {
+      "operacion": 4,
+      "cuenta1": 6420,
+      "cuenta2": 8795,
+      "monto": 13.58
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6355,
+      "cuenta2": 0,
+      "monto": 1948.35
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9187,
+      "cuenta2": 0,
+      "monto": 1807.32
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1543,
+      "cuenta2": 9519,
+      "monto": 4631.85
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2146,
+      "cuenta2": 0,
+      "monto": 3080
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 3600,
+      "cuenta2": 0,
+      "monto": 2132.88
+    },
+    {
+      "operacion": 6,
+      "cuenta1": 2177,
+      "cuenta2": 7154,
+      "monto": 3881.64
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5229,
+      "cuenta2": 8035,
+      "monto": 858.51
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 8435,
+      "cuenta2": 0,
+      "monto": 3777.5
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9483,
+      "cuenta2": 0,
+      "monto": 347.71
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 4812,
+      "cuenta2": 0,
+      "monto": 1259.62
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7154,
+      "cuenta2": 0,
+      "monto": 3315.81
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8035,
+      "cuenta2": 6688,
+      "monto": 4814.31
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 2928,
+      "cuenta2": 6013,
+      "monto": 3974.56
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 3848,
+      "cuenta2": 0,
+      "monto": 2287.14
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 8781,
+      "cuenta2": 0,
+      "monto": 3713.33
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 9402,
+      "cuenta2": 8435,
+      "monto": 4498.29
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 5853,
+      "cuenta2": 0,
+      "monto": 1048.51
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2689,
+      "cuenta2": 0,
+      "monto": 386.22
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8275,
+      "cuenta2": 2155,
+      "monto": 1393.91
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 8870,
+      "cuenta2": 0,
+      "monto": 4873.48
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7128,
+      "cuenta2": 3349,
+      "monto": 4725.92
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1209,
+      "cuenta2": 1406,
+      "monto": 40
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9805,
+      "cuenta2": 0,
+      "monto": 1865.05
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2359,
+      "cuenta2": 0,
+      "monto": 863.53
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1142,
+      "cuenta2": 0,
+      "monto": 3626.51
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 5172,
+      "cuenta2": 0,
+      "monto": 3197.42
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7128,
+      "cuenta2": 5172,
+      "monto": 2554.18
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2177,
+      "cuenta2": 0,
+      "monto": 819.99
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6420,
+      "cuenta2": 0,
+      "monto": 1089.78
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2155,
+      "cuenta2": 0,
+      "monto": 3000
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 7393,
+      "cuenta2": 9805,
+      "monto": 100165.55
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 2928,
+      "cuenta2": 9229,
+      "monto": 3357.85
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1869,
+      "cuenta2": 0,
+      "monto": 497.82
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 9251,
+      "cuenta2": 0,
+      "monto": 3672.26
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1379,
+      "cuenta2": 0,
+      "monto": 4809.75
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6215,
+      "cuenta2": 1543,
+      "monto": 3103.52
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9805,
+      "cuenta2": 0,
+      "monto": 3327.78
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 3052,
+      "cuenta2": 9251,
+      "monto": 4586.19
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 2754,
+      "cuenta2": 0,
+      "monto": 3650.7
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5229,
+      "cuenta2": 1543,
+      "monto": 3917.4
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6355,
+      "cuenta2": 0,
+      "monto": -96.76
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9251,
+      "cuenta2": 0,
+      "monto": 2386.25
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9014,
+      "cuenta2": 0,
+      "monto": 261.29
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 5112,
+      "cuenta2": 0,
+      "monto": 3256.37
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 4085,
+      "cuenta2": 0,
+      "monto": 3671.57
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 9717,
+      "cuenta2": 3349,
+      "monto": 3613.09
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1154,
+      "cuenta2": 0,
+      "monto": 3817.14
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5684,
+      "cuenta2": 6013,
+      "monto": 2510.44
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7688,
+      "cuenta2": 0,
+      "monto": 802.46
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2382,
+      "cuenta2": 0,
+      "monto": 1856.82
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 6688,
+      "cuenta2": 0,
+      "monto": 433
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 1543,
+      "cuenta2": 0,
+      "monto": 3509.03
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 3086,
+      "cuenta2": 0,
+      "monto": 20000
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 3961,
+      "cuenta2": 0,
+      "monto": 272.3
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6688,
+      "cuenta2": 0,
+      "monto": 449.62
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7745,
+      "cuenta2": 0,
+      "monto": 3361.22
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1209,
+      "cuenta2": 0,
+      "monto": 2119.84
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 1543,
+      "cuenta2": 0,
+      "monto": 1292.17
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 3555,
+      "cuenta2": 0,
+      "monto": 796.02
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9187,
+      "cuenta2": 0,
+      "monto": 688.51
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6994,
+      "cuenta2": 9229,
+      "monto": 2551.01
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9652,
+      "cuenta2": 0,
+      "monto": 1729.22
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 1800,
+      "cuenta2": 0,
+      "monto": 4913.22
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2713,
+      "cuenta2": 0,
+      "monto": 2440.87
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 6013,
+      "cuenta2": 5684,
+      "monto": 2164.33
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 9841,
+      "cuenta2": 6013,
+      "monto": 3387.28
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 6688,
+      "cuenta2": 0,
+      "monto": 2791.05
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 9841,
+      "cuenta2": 8978,
+      "monto": 200
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 9449,
+      "cuenta2": 7393,
+      "monto": 493.15
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2155,
+      "cuenta2": 0,
+      "monto": 4328.09
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 9652,
+      "cuenta2": 8781,
+      "monto": 160.97
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7393,
+      "cuenta2": 0,
+      "monto": 2750.41
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 1142,
+      "cuenta2": 8081,
+      "monto": 3796.43
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 5547,
+      "cuenta2": 2359,
+      "monto": 590.7
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 8870,
+      "cuenta2": 5396,
+      "monto": 502.81
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 3555,
+      "cuenta2": 0,
+      "monto": 191.23
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 9841,
+      "cuenta2": 0,
+      "monto": 3595.75
+    },
+    {
+      "operacion": 3,
+      "cuenta1": 3363,
+      "cuenta2": 3363,
+      "monto": 394.13
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9251,
+      "cuenta2": 0,
+      "monto": 3389.32
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 9841,
+      "cuenta2": 0,
+      "monto": 2360.43
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 7128,
+      "cuenta2": 0,
+      "monto": 4764.17
+    },
+    {
+      "operacion": 2,
+      "cuenta1": 2928,
+      "cuenta2": 0,
+      "monto": 2620.86
+    },
+    {
+      "operacion": 1,
+      "cuenta1": 7393,
+      "cuenta2": 0,
+      "monto": 59.08
+    }
+   ]
