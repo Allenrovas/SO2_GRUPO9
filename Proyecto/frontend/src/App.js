@@ -38,10 +38,24 @@ function App() {
     return acc;
   }, {});
 
-  const sortedData = Object.values(aggregatedData).sort((a, b) => b.tamanio_memoria - a.tamanio_memoria).slice(0, 10);
+  const sortedData = Object.values(aggregatedData).sort((a, b) => b.tamanio_memoria - a.tamanio_memoria);
 
   const memoryData = sortedData.map(log => (log.tamanio_memoria / 1048576).toFixed(2)); // Convertir bytes a MB
-  const labels = sortedData.map(log => `PID ${log.pid}`);
+  //Top 10 para el gráfico y agrupar los demás en "Otros"
+  /*const labels = sortedData.slice(0, 10).map(log => log.pid);
+  labels.push('Otros');
+  memoryData.splice(10, memoryData.length - 10);
+  memoryData.push(sortedData.slice(10).reduce((acc, log) => acc + log.tamanio_memoria, 0) / 1048576);*/
+  //Gráfico Top 10 y agrupar los demáss en "Otros" y "No asignada"; debe ser sobre el porcentaje de memoria, el tamanio total de la memoria es 8 GB
+  const labels = sortedData.slice(0, 10).map(log => log.pid);
+  labels.push('Otros');
+  labels.push('No asignada');
+  memoryData.splice(10, memoryData.length - 10);
+  memoryData.push(sortedData.slice(10).reduce((acc, log) => acc + log.tamanio_memoria, 0) / 1048576);
+  memoryData.push(8192 - sortedData.reduce((acc, log) => acc + log.tamanio_memoria, 0) / 1048576);
+
+  
+
 
   const pieData = {
     labels: labels,
@@ -78,6 +92,8 @@ function App() {
       
       <div className="container content">
         <div className="table-container">
+          
+        <h2>Procesos</h2>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -99,8 +115,9 @@ function App() {
             </tbody>
           </table>
         </div>
-
         <div className="chart-container">
+          
+          <h2>Gráfica de Porcentaje de Uso de Memoria</h2>
           <Pie data={pieData} />
         </div>
       </div>
