@@ -20,10 +20,28 @@ function App() {
     };
 
     fetchProcessLogs(); // Solicitud al cargar la página
+
+    const interval = setInterval(() => {
+      fetchProcessLogs();
+    }, 3000); // Solicitud cada 3 segundos
+
+    return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
   }, []);
 
-  const memoryData = data.map(log => log.tamanio_memoria);
-  const labels = data.map(log => `PID ${log.pid}`);
+  const aggregatedData = data.reduce((acc, log) => {
+    const { pid, nombre, tamanio_memoria } = log;
+    if (!acc[pid]) {
+      acc[pid] = { pid, nombre, tamanio_memoria: 0, count: 0 };
+    }
+    acc[pid].tamanio_memoria += tamanio_memoria;
+    acc[pid].count++;
+    return acc;
+  }, {});
+
+  const sortedData = Object.values(aggregatedData).sort((a, b) => b.tamanio_memoria - a.tamanio_memoria).slice(0, 10);
+
+  const memoryData = sortedData.map(log => (log.tamanio_memoria / 1048576).toFixed(2)); // Convertir bytes a MB
+  const labels = sortedData.map(log => `PID ${log.pid}`);
 
   const pieData = {
     labels: labels,
@@ -52,11 +70,10 @@ function App() {
     ]
   };
 
-
   return (
     <div className="App">
       <nav className="navbar navbar-dark bg-dark">
-          <a className="navbar-brand" href="#">PROYECTO 1 - SO2 - 202000343 - 202004745</a>
+        <a className="navbar-brand" href="#">PROYECTO 1 - SO2 - 202000343 - 202004745</a>
       </nav>
       
       <div className="container content">
@@ -66,18 +83,17 @@ function App() {
               <tr>
                 <th>PID</th>
                 <th>Nombre</th>
-                <th>Tamaño Memoria</th>
+                <th>Tamaño Memoria (MB)</th>
                 <th>Porcentaje de Memoria</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((log) => (
+              {sortedData.map((log) => (
                 <tr key={log.pid}>
                   <td>{log.pid}</td>
                   <td>{log.nombre}</td>
-                  <td>{log.tamanio_memoria}</td>
-                  <td>{8192 / log.tamanio_memoria} %</td>
-
+                  <td>{(log.tamanio_memoria / 1048576).toFixed(2)}</td>
+                  <td>{((log.tamanio_memoria / 8192 / 1048576) * 100).toFixed(2)} %</td>
                 </tr>
               ))}
             </tbody>
@@ -97,7 +113,7 @@ function App() {
               <th>PID</th>
               <th>Nombre</th>
               <th>Llamada</th>
-              <th>Tamaño Memoria</th>
+              <th>Tamaño Memoria (MB)</th>
               <th>Fecha y Hora</th>
             </tr>
           </thead>
@@ -107,7 +123,7 @@ function App() {
                 <td>{log.pid}</td>
                 <td>{log.nombre}</td>
                 <td>{log.llamada}</td>
-                <td>{log.tamanio_memoria}</td>
+                <td>{(log.tamanio_memoria / 1048576).toFixed(2)}</td>
                 <td>{new Date(log.fechahora).toLocaleString()}</td>
               </tr>
             ))}
